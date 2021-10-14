@@ -1,0 +1,19 @@
+#######################Current date and time: 14:35:28#######################
+Start training... on PeterRabbit003
+Training complete in 1076.431816sec
+Loading model...
+Starting matching... with scene039
+PPF Elapsed Time 0.3608472sec
+Performing ICP on 2 poses...
+ICP Elapsed Time 0.3608472sec
+Poses: 
+Pose Result 0
+[[ 0.01049217  0.15073301 -0.03227299  0.00852397]
+ [-0.15337486  0.0134464   0.01293907 -0.01359604]
+ [ 0.01543177  0.03115807  0.15054271 -0.01430728]
+ [ 0.          0.          0.          1.        ]]
+Pose Result 1
+[[-0.0311401   0.93799384  0.34525042  0.00642227]
+ [-0.98716362  0.02527266 -0.15769995 -0.05569363]
+ [-0.15664698 -0.34572945  0.9251664   0.00685738]
+ [ 0.          0.          0.          1.        ]]
