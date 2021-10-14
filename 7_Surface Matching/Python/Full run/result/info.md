@@ -1,0 +1,3 @@
+resultfolderformat<br>
+
+relativeSamplingStep_relativeDistanceStep_numAngles_relativeSceneSampleStep_relativeSceneDistance_iterations_tolerence_rejectionScale_numLevels
