@@ -18,9 +18,9 @@ squirrel = ["01", "03", "06", "13", "14", "30", "31", "32", "36"]
 #Algorithm Parameter
 #Link: https://docs.opencv.org/4.5.3/db/d25/classcv_1_1ppf__match__3d_1_1PPF3DDetector.html#abe2433c0b4eb9be6506172aeccdd534e
 #Detector
-relativeSamplingStep = 0.03
+relativeSamplingStep = 0.1
 relativeDistanceStep = 0.05
-numAngles = 0
+#numAngles = 1
 #Match
 relativeSceneSampleStep = 1.0/40
 relativeSceneDistance = 0.05
@@ -31,8 +31,11 @@ tolerence = 0.005
 rejectionScale = 2.5
 numLevels = 8
 
-target_dir = str(relativeSamplingStep) + "_" + str(relativeDistanceStep) + "_" + str(numAngles) + "_" + str(relativeSceneSampleStep) + "_" +\
+# target_dir = str(relativeSamplingStep) + "_" + str(relativeDistanceStep) + "_" + str(numAngles) + "_" + str(relativeSceneSampleStep) + "_" +\
+#              str(relativeSceneDistance) + "_" + str(iterations) + "_" + str(tolerence) + "_" + str(rejectionScale) + "_" + str(numLevels)
+target_dir = str(relativeSamplingStep) + "_" + str(relativeDistanceStep) + "_" + str(relativeSceneSampleStep) + "_" +\
              str(relativeSceneDistance) + "_" + str(iterations) + "_" + str(tolerence) + "_" + str(rejectionScale) + "_" + str(numLevels)
+
 
 
 #Path to objectfolders
@@ -40,19 +43,27 @@ obj_folders = os.listdir("Kinect_readable\MeshRegistration")
 #Path to scenes
 sce_files = os.listdir("Kinect_readable\ObjectRecognition")[1:]
 
+#Create Result Dir
+try:
+    os.mkdir("Full run\\result\\" + target_dir)
+    os.mkdir("Full run\\result\\" + target_dir + "\\objects")
+except:
+    print("Dir exists")
+
+
+#iterration über alle objekttypen
 for obj_folder in obj_folders:
     try:
-        calc_sce = [item for item in os.listdir("Full run\\" + target_dir + "\\result") if "poses" in item]
+        #Finde alle schon berechneten Kombinationen
+        calc_sce = [item for item in os.listdir("Full run\\result\\" + target_dir) if "poses" and obj_folder in item]
     except:
         calc_sce = []
-
-
-
-for obj_folder in obj_folders:
     try:
+        #Welche verschiedenen Versionen gibt es je objekttyp
         obj_files = os.listdir("Kinect_readable\MeshRegistration\\" + str(obj_folder))
     except:
         break
+    #get scene_numbers for specific object
     for obj_file in obj_files:
         if "Doll" in obj_file:
             scenes_no = doll
@@ -66,6 +77,7 @@ for obj_folder in obj_folders:
             scenes_no = peterrabbit
         elif "Squirrel" in obj_file:
             scenes_no = squirrel
+        #welche scenen wurden schon berechnet
         calc_obj = [item[:-10][-2:] for item in calc_sce if obj_file[:-4] in item]
         if len(calc_obj) < len(scenes_no):
             info_string = "#######################Current date and time: " + now.strftime('%H:%M:%S') + "#######################"
@@ -76,7 +88,8 @@ for obj_folder in obj_folders:
             tick1 = cv2.getTickCount()
             info_string += "\n" + "Start training... on " + str(obj_file[:-4])
             print("Start training... on " + str(obj_file[:-4]))
-            detector = cv2.ppf_match_3d_PPF3DDetector(relativeSamplingStep, relativeDistanceStep, numAngles)
+            detector = cv2.ppf_match_3d_PPF3DDetector(relativeSamplingStep, relativeDistanceStep)
+            #detector = cv2.ppf_match_3d_PPF3DDetector(relativeSamplingStep, relativeDistanceStep, numAngles)
             try:
                 detector.trainModel(pc)
             except:
@@ -88,6 +101,7 @@ for obj_folder in obj_folders:
             print("Loading model...")
 
             for sce_file in sce_files:
+                #nur scenen werden gematched die gebraucht sind und noch nicht berechnet wurden
                 if sce_file[:-4][-2:] in scenes_no and sce_file[:-4][-2:] not in calc_obj:
                     f = open("Full run\\result\\" + target_dir + "\\" + str(obj_file[:-4]) + "_" + str(sce_file[:-4]) + "_poses.txt", 'w')
                     f.write(info_string)
@@ -108,7 +122,7 @@ for obj_folder in obj_folders:
                     N = 2
                     resultsSub = results[:N]
                     icp = cv2.ppf_match_3d_ICP(iterations, tolerence, rejectionScale, numLevels)
-                    icp = cv2.ppf_match_3d_ICP()
+                    #icp = cv2.ppf_match_3d_ICP()
                     t1 = cv2.getTickCount()
 
                     f.write("\nPerforming ICP on " + str(N) + " poses...")
