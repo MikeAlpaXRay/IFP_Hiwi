@@ -1,0 +1,19 @@
+#######################Current date and time: 12:16:30#######################
+Start training... on Mario000.ply
+Training complete in 0.0002286sec
+Loading model...
+Starting matching... with scene001.ply
+PPF Elapsed Time 0.0336226sec
+Performing ICP on 2 poses...
+ICP Elapsed Time 0.0336226sec
+Poses: 
+Pose Result 0
+[[-0.02307136  0.10411619 -0.170091    0.83197363]
+ [-0.19897514 -0.02353762  0.01258139 -0.10324736]
+ [-0.01341726  0.17002711  0.10589701  1.14575139]
+ [ 0.          0.          0.          1.        ]]
+Pose Result 1
+[[ 0.25216004  0.19174729 -0.93700495  1.09543274]
+ [-0.93565038  0.25031941 -0.20057052  0.39386143]
+ [ 0.1982515   0.93749834  0.24520028  0.63040427]
+ [ 0.          0.          0.          1.        ]]

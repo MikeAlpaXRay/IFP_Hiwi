@@ -16,12 +16,12 @@ object_paths = [obj0_path, obj1_path, obj2_path]
 #Algorithm Parameter
 #Link: https://docs.opencv.org/4.5.3/db/d25/classcv_1_1ppf__match__3d_1_1PPF3DDetector.html#abe2433c0b4eb9be6506172aeccdd534e
 #Detector
-relativeSamplingStep = 0.05
+relativeSamplingStep = 0.025
 relativeDistanceStep = 0.05
 numAngles = 1
 #Match
 relativeSceneSampleStep = 1.0/2
-relativeSceneDistance = 0.01
+relativeSceneDistance = 0.05
 #ICP
 #Link: https://docs.opencv.org/4.5.3/dc/d9b/classcv_1_1ppf__match__3d_1_1ICP.html
 iterations = 100
