@@ -5,6 +5,7 @@ import datetime
 now = datetime.datetime.now()
 
 
+
 #choosen objects for parameter study
 scene_path = "given result\\scene001.ply"
 obj0_path = "given result\\Mario000.ply"
@@ -13,21 +14,28 @@ obj2_path = "given result\Squirrel011.ply"
 object_paths = [obj0_path, obj1_path, obj2_path]
 
 
+# scene_path = "given result\\stanford\\Scene0View0_0.1.ply"
+# obj0_path = "given result\\stanford\\Armadillo_vres2_small_scaled_0.ply"
+# object_paths = [obj0_path]
+
+
+
+
 #Algorithm Parameter
 #Link: https://docs.opencv.org/4.5.3/db/d25/classcv_1_1ppf__match__3d_1_1PPF3DDetector.html#abe2433c0b4eb9be6506172aeccdd534e
 #Detector
-relativeSamplingStep = 0.025
-relativeDistanceStep = 0.05
+relativeSamplingStep = 0.04
+relativeDistanceStep = 0.04
 numAngles = 1
 #Match
-relativeSceneSampleStep = 1.0/2
-relativeSceneDistance = 0.05
+relativeSceneSampleStep = 0.04
+relativeSceneDistance = 0.04
 #ICP
 #Link: https://docs.opencv.org/4.5.3/dc/d9b/classcv_1_1ppf__match__3d_1_1ICP.html
-iterations = 100
+iterations = 500
 tolerence = 0.005
-rejectionScale = 2.5
-numLevels = 8
+rejectionScale = 2
+numLevels = 4
 
 
 ##result folder name based of parameters

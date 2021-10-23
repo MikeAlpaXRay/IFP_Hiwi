@@ -5,7 +5,7 @@ import datetime
 now = datetime.datetime.now()
 
 
-#In welchen Szenen ist das Object zu finden
+#In welchen Szenen ist das Object zu finden, siehe Content.xlsx
 doll = ["05", "06", "10", "13", "22", "30", "39"]
 duck = ["11", "13","14"]
 frog = ["18", "19", "22", "30", "31", "32", "39", "40"]
@@ -22,7 +22,7 @@ relativeSamplingStep = 0.1
 relativeDistanceStep = 0.05
 #numAngles = 1
 #Match
-relativeSceneSampleStep = 1.0/40
+relativeSceneSampleStep = 0.5
 relativeSceneDistance = 0.05
 #ICP
 #Link: https://docs.opencv.org/4.5.3/dc/d9b/classcv_1_1ppf__match__3d_1_1ICP.html
