@@ -35,7 +35,7 @@ relativeDistanceStep = 0.05
 # Decreasing the value decreases the precision of the matching but increases the robustness against incorrect normal directions.
 # For very noisy scenes where the normal directions can not be computed accurately, the value can be set to 25 or 20.
 #################################################################
-numAngles = 10
+numAngles = 0
 
 
 #################################################################
