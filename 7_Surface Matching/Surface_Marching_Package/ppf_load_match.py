@@ -29,7 +29,7 @@ for possible_scene in possible_scene_files:
         scene = possible_scene
 
 # Number of Results used
-N = 5
+N = 50
 
 
 print('Prime detector...')
