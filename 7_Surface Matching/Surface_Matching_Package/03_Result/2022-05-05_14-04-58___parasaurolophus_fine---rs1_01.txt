@@ -1,0 +1,14 @@
+Parameters:
+Model:	ACTIVE_parasaurolophus_fine.ply
+Scene:	ACTIVE_rs1_01.ply
+relativeSamplingStep:		0.1
+relativeDistanceStep:		0.05
+numAngles:			10
+relativeSceneSampleStep:	0.5
+relativeSceneDistance:		0.03
+
+-- Pose to Model Index 161: NumVotes = 2385, Residual = 0.001816
+[[ 3.66276169e-01  5.75122383e-01 -7.31488902e-01 -1.16351300e+01]
+ [-7.93131779e-01 -2.18134043e-01 -5.68647096e-01  3.79078926e+01]
+ [-4.86604304e-01  7.88448974e-01  3.76250537e-01 -7.32175309e+02]
+ [ 0.00000000e+00  0.00000000e+00  0.00000000e+00  1.00000000e+00]]

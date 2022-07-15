@@ -1,0 +1,8 @@
+Parameters:
+Model:	ACTIVE_parasaurolophus_low_normals2.ply
+Scene:	ACTIVE_rs22_proc2.ply
+relativeSamplingStep:		0.03
+relativeDistanceStep:		0.05
+numAngles:			50
+relativeSceneSampleStep:	0.5
+relativeSceneDistance:		0.05

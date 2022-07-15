@@ -1,0 +1,14 @@
+Parameters:
+Model:	ACTIVE_model_plane3.ply
+Scene:	ACTIVE_scene_plane3.ply
+relativeSamplingStep:		0.01
+relativeDistanceStep:		0.02
+numAngles:			10
+relativeSceneSampleStep:	0.5
+relativeSceneDistance:		0.03
+
+-- Pose to Model Index 2: NumVotes = 2, Residual = 0.105410
+[[-0.98718657  0.01001783 -0.15925549  1.9916979 ]
+ [ 0.07445066 -0.85382369 -0.51521084  0.05153889]
+ [-0.14113741 -0.5204659   0.84213745  1.19308689]
+ [ 0.          0.          0.          1.        ]]

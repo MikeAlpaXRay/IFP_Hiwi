@@ -1,0 +1,8 @@
+Parameters:
+Model:	ACTIVE_model_palette_n_0_s_001.ply
+Scene:	ACTIVE_scene_palette_n_0_s_0025.ply
+relativeSamplingStep:		0.03
+relativeDistanceStep:		0.05
+numAngles:			50
+relativeSceneSampleStep:	0.5
+relativeSceneDistance:		0.05

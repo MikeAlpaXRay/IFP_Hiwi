@@ -1,0 +1,14 @@
+Parameters:
+Model:	ACTIVE_model_pfeiler_n_0_s_001.ply
+Scene:	ACTIVE_scene_combined_01.ply
+relativeSamplingStep:		0.1
+relativeDistanceStep:		0.05
+numAngles:			10
+relativeSceneSampleStep:	0.5
+relativeSceneDistance:		0.03
+
+-- Pose to Model Index 10: NumVotes = 3722, Residual = 0.000958
+[[ 0.19312241  0.3345872  -0.91527459 -1.81132644]
+ [ 0.90934538  0.27361002  0.29189205 -4.50326456]
+ [ 0.35038143 -0.89451741 -0.25306894  3.02748388]
+ [ 0.          0.          0.          1.        ]]
