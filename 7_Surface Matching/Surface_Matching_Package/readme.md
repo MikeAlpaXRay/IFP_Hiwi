@@ -14,6 +14,6 @@ in [parameters.py]("https://github.com/MikeAlpaXRay/IFP_Hiwi/blob/master/7_Surfa
 One Scene File and one or more Model Files with Prefix "ACTIVE_" or "AKTIVE_" are used for matching.
 
 <h2>Cloudcreation</h2>
-Provide a STI file of an object, [example files]("https://github.com/MikeAlpaXRay/IFP_Hiwi/tree/master/7_Surface%20Matching/Surface_Matching_Package/04_CAD").
+Provide a STI file of an object, [example files]("https://github.com/MikeAlpaXRay/IFP_Hiwi/tree/master/7_Surface%20Matching/Surface_Matching_Package/05_CAD").
 Open set files with the program cloud compare, select the mesh and click on "Sample points on a mesh", keeping the normals.
 These cloud can be exported as a non-binary PLY file.
