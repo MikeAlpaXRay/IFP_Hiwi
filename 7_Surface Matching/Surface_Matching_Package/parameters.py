@@ -4,6 +4,7 @@
 model_path = "01_Models"
 scene_path = "02_Scene"
 result_path = "03_Result"
+scene_compare_path = "04_Scene_Compare_Pose"
 
 
 #################################################################
