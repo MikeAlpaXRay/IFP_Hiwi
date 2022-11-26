@@ -50,7 +50,7 @@ def matching(python_parameters=[], outputfilename=""):
     bat_parameter = sys.argv[1:]
     if len(bat_parameter) == 5:
 
-        # print("Parameters from .bat are used")
+        print("Parameters from .bat are used")
 
         relativeSamplingStep = float(parameter[0][:-1])
         relativeDistanceStep = float(parameter[1][:-1])
@@ -59,7 +59,7 @@ def matching(python_parameters=[], outputfilename=""):
         relativeSceneDistance = float(parameter[4])
     elif len(python_parameters) == 7:
 
-        # print("Parameters from funtion are used")
+        print("Parameters from funtion are used")
 
         counter = python_parameters[0]
         relativeSamplingStep = float(python_parameters[1])
@@ -70,11 +70,12 @@ def matching(python_parameters=[], outputfilename=""):
         progress = float(python_parameters[6])
     else:
 
-        # print("Parameters from parameters.py are used")
+        print("Parameters from parameters.py are used")
 
         from parameters import \
             relativeSamplingStep, relativeDistanceStep, numAngles, \
             relativeSceneSampleStep, relativeSceneDistance
+
 
     #################################################################
     # get Model .PLY Files from /Model with prefix (ACTIVE_)
@@ -93,35 +94,35 @@ def matching(python_parameters=[], outputfilename=""):
         detector = cv.ppf_match_3d_PPF3DDetector(relativeSamplingStep, relativeDistanceStep)
     else:
         detector = cv.ppf_match_3d_PPF3DDetector(relativeSamplingStep, relativeDistanceStep, numAngles)
-    for scene in scenes:
-        for model in models:
+    for model in models:
+        for scene in scenes:
             tick1 = cv.getTickCount()
             pc = cv.ppf_match_3d.loadPLYSimple(model_path + "/%s" % model, 1)
             tick2 = cv.getTickCount()
             modal_load_duration = (tick2 - tick1) / cv.getTickFrequency()
 
-            # print("Modelloading complete in " + str(modal_load_duration) + "sec")
+            print("Modelloading complete in " + str(modal_load_duration) + "sec")
 
             tick1 = cv.getTickCount()
             detector.trainModel(pc)
             tick2 = cv.getTickCount()
             training_duration = (tick2 - tick1) / cv.getTickFrequency()
 
-            # print("Training complete in " + str(training_duration) + "sec")
+            print("Training complete in " + str(training_duration) + "sec")
 
             tick1 = cv.getTickCount()
             pcTest = cv.ppf_match_3d.loadPLYSimple(scene_path + "/%s" % scene, 1)
             tick2 = cv.getTickCount()
             scene_load_duration = (tick2 - tick1) / cv.getTickFrequency()
 
-            # print("Sceneloading complete in " + str(scene_load_duration) + "sec")
+            print("Sceneloading complete in " + str(scene_load_duration) + "sec")
 
             tick1 = cv.getTickCount()
             results = detector.match(pcTest, relativeSceneSampleStep, relativeSceneDistance)
             tick2 = cv.getTickCount()
             matching_duration = (tick2 - tick1) / cv.getTickFrequency()
 
-            # print("Matching complete in " + str(matching_duration) + "sec")
+            print("Matching complete in " + str(matching_duration) + "sec")
 
             times = [modal_load_duration, training_duration, scene_load_duration, matching_duration]
 
@@ -130,11 +131,11 @@ def matching(python_parameters=[], outputfilename=""):
 
             now = datetime.datetime.now()
 
-            # print("####################### Current date and time: " + now.strftime("%Y %B%d - %H:%M:%S") +
-            #      " #######################")
+            print("####################### Current date and time: " + now.strftime("%Y %B%d - %H:%M:%S") +
+                  " #######################")
 
             # sort by resudial
-            results.sort(key=lambda x: x.residual)
+            list(results).sort(key=lambda x: x.residual)
 
             # check if comparable pose exist
             scene_name = scene[7:-4]
@@ -240,44 +241,50 @@ def main():
         writer(f_object).writerow(headersCSV)
         f_object.close()
 
-    # set Parameters
-    # = [min, max, step/stepcount, "s"/"c"]
-    relativeSamplingStep_Range = [0.05, 0.5, 10, "c"]
-    relativeDistanceStep_Range = [0.05, 0.5, 10, "c"]
-    numAngles_Range = [0, 50, 10, "c"]
-    relativeSceneSampleSte_Range = [0.05, 0.5, 10, "c"]
-    relativeSceneDistance_Range = [0.05, 0.5, 10, "c"]
+    # itter over parameter space
+    if False:
 
-    # transformParameters
-    relativeSamplingStep_Range = handleParameterArray(relativeSamplingStep_Range)
-    relativeDistanceStep_Range = handleParameterArray(relativeDistanceStep_Range)
-    numAngles_Range = handleParameterArray(numAngles_Range)
-    relativeSceneSampleSte_Range = handleParameterArray(relativeSceneSampleSte_Range)
-    relativeSceneDistance_Range = handleParameterArray(relativeSceneDistance_Range)
+        # set Parameters
+        # = [min, max, step/stepcount, "s"/"c"]
+        relativeSamplingStep_Range = [0.1, 0.5, 10, "c"]
+        relativeDistanceStep_Range = [0.1, 0.5, 10, "c"]
+        numAngles_Range = [0, 50, 10, "c"]
+        relativeSceneSampleSte_Range = [0.1, 0.5, 10, "c"]
+        relativeSceneDistance_Range = [0.1, 0.5, 10, "c"]
 
-    calulations = len(relativeSamplingStep_Range) * len(relativeDistanceStep_Range) * \
-                  len(numAngles_Range) * len(relativeSceneSampleSte_Range) * len(relativeSceneDistance_Range)
+        # transformParameters
+        relativeSamplingStep_Range = handleParameterArray(relativeSamplingStep_Range)
+        relativeDistanceStep_Range = handleParameterArray(relativeDistanceStep_Range)
+        numAngles_Range = handleParameterArray(numAngles_Range)
+        relativeSceneSampleSte_Range = handleParameterArray(relativeSceneSampleSte_Range)
+        relativeSceneDistance_Range = handleParameterArray(relativeSceneDistance_Range)
 
-    # Calc itter
-    now = datetime.datetime.now()
-    print("####################### Current date and time: " + now.strftime(
-        "%Y %B%d - %H:%M:%S") + " #######################")
-    for i_relativeSamplingStep in relativeSamplingStep_Range:
-        for i_relativeDistanceStep in relativeDistanceStep_Range:
-            for i_numAngles in numAngles_Range:
-                for i_relativeSceneSampleSte in relativeSceneSampleSte_Range:
-                    for i_relativeSceneDistance in relativeSceneDistance_Range:
-                        progress = round(counter / (calulations / 100), 2)
+        calulations = len(relativeSamplingStep_Range) * len(relativeDistanceStep_Range) * \
+                      len(numAngles_Range) * len(relativeSceneSampleSte_Range) * len(relativeSceneDistance_Range)
 
-                        parameter = [counter, i_relativeSamplingStep, i_relativeDistanceStep, i_numAngles,
-                                     i_relativeSceneSampleSte, i_relativeSceneDistance, progress]
-                        print("New Parameters")
-                        print(
-                            "Progress\tTime\t\tModel Load Duration [s]\tTraining Duration [s]\tScene Load Duration [s]\tMatching Duration [s]")
-                        matching(parameter, outputfile_name)
-                        now = datetime.datetime.now()
+        # Calc itter
+        now = datetime.datetime.now()
+        print("####################### Current date and time: " + now.strftime(
+            "%Y %B%d - %H:%M:%S") + " #######################")
+        for i_relativeSamplingStep in relativeSamplingStep_Range:
+            for i_relativeDistanceStep in relativeDistanceStep_Range:
+                for i_numAngles in numAngles_Range:
+                    for i_relativeSceneSampleSte in relativeSceneSampleSte_Range:
+                        for i_relativeSceneDistance in relativeSceneDistance_Range:
+                            progress = round(counter / (calulations / 100), 2)
 
-                        counter += 1
+                            parameter = [counter, i_relativeSamplingStep, i_relativeDistanceStep, i_numAngles,
+                                         i_relativeSceneSampleSte, i_relativeSceneDistance, progress]
+                            print("New Parameters")
+                            print(
+                                "Progress\tTime\t\tModel Load Duration [s]\tTraining Duration [s]\tScene Load Duration [s]\tMatching Duration [s]")
+                            matching(parameter, outputfile_name)
+                            now = datetime.datetime.now()
+
+                            counter += 1
+    # use parameter.py
+    if True:
+        matching(outputfilename=outputfile_name)
 
     now = datetime.datetime.now()
     timestamp = now.strftime("%Y-%m-%d_%H-%M-%S")

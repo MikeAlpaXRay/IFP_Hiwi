@@ -14,7 +14,7 @@ scene_compare_path = "04_Scene_Compare_Pose"
 # Increasing the value leads to a less accurate pose computation but a smaller model and faster model generation and matching.
 # Beware of the memory consumption when using small values.
 #################################################################
-relativeSamplingStep = 0.1
+relativeSamplingStep = 0.025
 
 
 #################################################################
@@ -25,7 +25,7 @@ relativeSamplingStep = 0.1
 # This argument defaults to the value of RelativeSamplingStep.
 # For noisy scenes, the value can be increased to improve the robustness of the matching against noisy points.
 #################################################################
-relativeDistanceStep = 0.5
+relativeDistanceStep = 0.05
 
 
 #################################################################
@@ -36,7 +36,7 @@ relativeDistanceStep = 0.5
 # Decreasing the value decreases the precision of the matching but increases the robustness against incorrect normal directions.
 # For very noisy scenes where the normal directions can not be computed accurately, the value can be set to 25 or 20.
 #################################################################
-numAngles = 10
+numAngles = 0
 
 
 #################################################################
@@ -46,7 +46,7 @@ numAngles = 10
 # Increasing the value leads to less points being used and in turn to a faster but less accurate pose computation.
 # Decreasing the value has the inverse effect.
 #################################################################
-relativeSceneSampleStep = 1/2
+relativeSceneSampleStep = 1/4
 
 
 #################################################################
@@ -54,4 +54,4 @@ relativeSceneSampleStep = 1/2
 # This parameter is equivalent to relativeSamplingStep in the training stage.
 # This parameter acts like a prior sampling with the relativeSceneSampleStep parameter.
 #################################################################
-relativeSceneDistance = 0.03
+relativeSceneDistance = 0.05
