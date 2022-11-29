@@ -71,10 +71,10 @@ def matching(python_parameters=[], outputfilename=""):
     else:
 
         print("Parameters from parameters.py are used")
-
         from parameters import \
             relativeSamplingStep, relativeDistanceStep, numAngles, \
             relativeSceneSampleStep, relativeSceneDistance
+        counter = 0
 
 
     #################################################################
@@ -86,6 +86,7 @@ def matching(python_parameters=[], outputfilename=""):
     # get Scene .PLY Files from /Scene with prefix (ACTIVE_)
     #################################################################
     scenes = getScenes(scene_path)
+
 
     # Number of Results used
     N = 50
@@ -101,28 +102,28 @@ def matching(python_parameters=[], outputfilename=""):
             tick2 = cv.getTickCount()
             modal_load_duration = (tick2 - tick1) / cv.getTickFrequency()
 
-            print("Modelloading complete in " + str(modal_load_duration) + "sec")
+            #print("Modelloading complete in " + str(modal_load_duration) + "sec")
 
             tick1 = cv.getTickCount()
             detector.trainModel(pc)
             tick2 = cv.getTickCount()
             training_duration = (tick2 - tick1) / cv.getTickFrequency()
 
-            print("Training complete in " + str(training_duration) + "sec")
+            #print("Training complete in " + str(training_duration) + "sec")
 
             tick1 = cv.getTickCount()
             pcTest = cv.ppf_match_3d.loadPLYSimple(scene_path + "/%s" % scene, 1)
             tick2 = cv.getTickCount()
             scene_load_duration = (tick2 - tick1) / cv.getTickFrequency()
 
-            print("Sceneloading complete in " + str(scene_load_duration) + "sec")
+            #print("Sceneloading complete in " + str(scene_load_duration) + "sec")
 
             tick1 = cv.getTickCount()
             results = detector.match(pcTest, relativeSceneSampleStep, relativeSceneDistance)
             tick2 = cv.getTickCount()
             matching_duration = (tick2 - tick1) / cv.getTickFrequency()
 
-            print("Matching complete in " + str(matching_duration) + "sec")
+            #print("Matching complete in " + str(matching_duration) + "sec")
 
             times = [modal_load_duration, training_duration, scene_load_duration, matching_duration]
 
@@ -221,8 +222,13 @@ def matching(python_parameters=[], outputfilename=""):
                 f_object.close()
 
             now = datetime.datetime.now()
-            print(str(progress) + "%/100%\t" + now.strftime("%H:%M:%S") + "\t" + str(times[0]) + "\t\t" + str(
-                times[1]) + "\t\t" + str(times[2]) + "\t\t" + str(times[3]))
+            try:
+                print(str(progress) + "%/100%\t" + now.strftime("%H:%M:%S") + "\t" + str(times[0]) + "\t\t" +
+                      str(times[1]) + "\t\t" + str(times[2]) + "\t\t" + str(times[3]))
+            except:
+                print(now.strftime("%H:%M:%S") + "\t" + str(times[0]) + "\t\t" +
+                      str(times[1]) + "\t\t" + str(times[2]) + "\t\t" + str(times[3]))
+
 
 
 def main():
