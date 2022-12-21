@@ -166,15 +166,15 @@ def matching(python_parameters=[]):
 
 def main():
 
-    space = [Real(0.05, 0.5, name='relativeSamplingStep_Range'),
-             Real(0.05, 0.5, name='relativeDistanceStep_Range'),
-             Integer(0, 50, name='numAngles_Range'),
-             Real(0.05, 0.5, name='relativeSceneSampleSte_Range'),
-             Real(0.05, 0.5, name='relativeSceneDistance_Range')]
+    space = [Real(0.01, 0.1, name='relativeSamplingStep_Range'),
+             Real(0.025, 0.1, name='relativeDistanceStep_Range'),
+             Integer(0, 25, name='numAngles_Range'),
+             Real(0.1, 1, name='relativeSceneSampleSte_Range'),
+             Real(0.01, 0.1, name='relativeSceneDistance_Range')]
 
 
 
-    res_gp = gp_minimize(matching, space, n_calls=10, random_state=0)
+    res_gp = gp_minimize(matching, space, n_calls=1500, random_state=0)
 
     print("Best score=%.4f" % res_gp.fun)
 
