@@ -53,12 +53,24 @@ def matching(python_parameters=[]):
     #################################################################
     # get Model .PLY Files from /Model with prefix (ACTIVE_)
     #################################################################
-    models = getModels(model_path)
+    
+    #models = getModels(model_path)
+    
+    
+    ### small hack reverse
+    models = []
+    models.append("ACTIVE_model_palette_n_100000_1.ply")
 
     #################################################################
     # get Scene .PLY Files from /Scene with prefix (ACTIVE_)
     #################################################################
-    scenes = getScenes(scene_path)
+    
+    #scenes = getScenes(scene_path)
+    
+    
+    ### small hack reverse
+    scenes = []
+    scenes.append("ACTIVE_scene_palette_n_10000.ply")
 
     # Number of Results used
     N = 50
