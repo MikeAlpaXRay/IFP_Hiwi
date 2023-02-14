@@ -186,11 +186,11 @@ def main():
 
     logging.basicConfig(filename='quick.log', encoding='utf-8', level=logging.INFO)
 
-    space = [Real(0.5, 0.7, name='relativeSamplingStep_Range'),
-             Real(0.5, 0.7, name='relativeDistanceStep_Range'),
-             Integer(0, 10, name='numAngles_Range'),
-             Real(0.5, 1, name='relativeSceneSampleSte_Range'),
-             Real(0.5, 0.7, name='relativeSceneDistance_Range')]
+    space = [Real(0.01, 0.1, name='relativeSamplingStep_Range'),
+             Real(0.025, 0.1, name='relativeDistanceStep_Range'),
+             Integer(0, 25, name='numAngles_Range'),
+             Real(0.1, 1, name='relativeSceneSampleSte_Range'),
+             Real(0.01, 0.1, name='relativeSceneDistance_Range')]
 
 
 
