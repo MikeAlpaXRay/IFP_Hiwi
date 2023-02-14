@@ -12,6 +12,7 @@ from skopt.space import Real, Integer
 from skopt.utils import use_named_args
 from skopt import gp_minimize
 from skopt.plots import plot_convergence
+import logging
 
 
 def getModels(path):
@@ -79,7 +80,10 @@ def matching(python_parameters=[]):
     else:
         detector = cv.ppf_match_3d_PPF3DDetector(relativeSamplingStep, relativeDistanceStep, numAngles)
     for model in models:
+        logging.info(f"\n\nTraining with model: {model}")
         for scene in scenes:
+            logging.info(f"Training with scene: {scene}")
+            logging.info(f"With Parameter: {python_parameters}")
             tick1 = cv.getTickCount()
             pc = cv.ppf_match_3d.loadPLYSimple(model_path + "/%s" % model, 1)
             tick2 = cv.getTickCount()
@@ -167,6 +171,8 @@ def matching(python_parameters=[]):
                 # starker einfluss von translation geringerer von rotation
                 calc_score = 10*(tra_norm**4) + (rot_norm**2)/10
                 print("Rotation Error: " + str(rot_norm) + "\tTranstation Error: " + str(tra_norm) +"\tScore: " + str(calc_score))
+
+                logging.info("Rotation Error: " + str(rot_norm) + "\tTranstation Error: " + str(tra_norm) +"\tScore: " + str(calc_score))
             except:
                 rot_norm = "Error"
                 tra_norm = "Error"
@@ -178,15 +184,17 @@ def matching(python_parameters=[]):
 
 def main():
 
-    space = [Real(0.01, 0.1, name='relativeSamplingStep_Range'),
-             Real(0.025, 0.1, name='relativeDistanceStep_Range'),
-             Integer(0, 25, name='numAngles_Range'),
-             Real(0.1, 1, name='relativeSceneSampleSte_Range'),
-             Real(0.01, 0.1, name='relativeSceneDistance_Range')]
+    logging.basicConfig(filename='quick.log', encoding='utf-8', level=logging.INFO)
+
+    space = [Real(0.5, 0.7, name='relativeSamplingStep_Range'),
+             Real(0.5, 0.7, name='relativeDistanceStep_Range'),
+             Integer(0, 10, name='numAngles_Range'),
+             Real(0.5, 1, name='relativeSceneSampleSte_Range'),
+             Real(0.5, 0.7, name='relativeSceneDistance_Range')]
 
 
 
-    res_gp = gp_minimize(matching, space, n_calls=1500, random_state=0)
+    res_gp = gp_minimize(matching, space, n_calls=15, random_state=0)
 
     print("Best score=%.4f" % res_gp.fun)
 
