@@ -15,6 +15,10 @@ from skopt.plots import plot_convergence
 import logging
 
 
+#change to -1 für alle cores
+cores_count = 5
+
+
 def getModels(path):
     #################################################################
     # get Model .PLY Files from /Model with prefix (ACTIVE_)
@@ -169,7 +173,7 @@ def matching(python_parameters=[]):
                 tra_norm = round(np.linalg.norm([x_dif, y_dif, z_dif]), 5)
 
                 # starker einfluss von translation geringerer von rotation
-                calc_score = 10*(tra_norm**4) + (rot_norm**2)/10
+                calc_score = (tra_norm**4) + (rot_norm**2)
                 print("Rotation Error: " + str(rot_norm) + "\tTranstation Error: " + str(tra_norm) +"\tScore: " + str(calc_score))
 
                 logging.info("Rotation Error: " + str(rot_norm) + "\tTranstation Error: " + str(tra_norm) +"\tScore: " + str(calc_score))
@@ -186,15 +190,17 @@ def main():
 
     logging.basicConfig(filename='quick.log', encoding='utf-8', level=logging.INFO)
 
-    space = [Real(0.01, 0.1, name='relativeSamplingStep_Range'),
-             Real(0.025, 0.1, name='relativeDistanceStep_Range'),
+    space = [Real(0.015, 0.08, name='relativeSamplingStep_Range'),
+             Real(0.03, 0.08, name='relativeDistanceStep_Range'),
              Integer(0, 25, name='numAngles_Range'),
-             Real(0.1, 1, name='relativeSceneSampleSte_Range'),
-             Real(0.01, 0.1, name='relativeSceneDistance_Range')]
+             Real(0.3, 0.8, name='relativeSceneSampleSte_Range'),
+             Real(0.03, 0.08, name='relativeSceneDistance_Range')]
 
 
 
-    res_gp = gp_minimize(matching, space, n_calls=15, random_state=0)
+    res_gp = gp_minimize(matching, space,
+                         acq_optimizer="lbfgs", n_jobs=cores_count,
+                         n_calls=1500, random_state=0)
 
     print("Best score=%.4f" % res_gp.fun)
 
